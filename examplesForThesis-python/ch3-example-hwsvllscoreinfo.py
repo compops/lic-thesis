@@ -13,7 +13,7 @@
 # 
 # Run this code together with the corresponding R-file to reproduce:
 #
-# Score and information matrix in the Hull-White SV model
+# Estimation in the Hull-White SV model
 # Example 3.7 in Section 3.4.2
 #
 ########################################################################
@@ -37,10 +37,10 @@ par              = stParameters();
 sys              = stSystemHW()
 sys.version      = "standard"
 sys.par          = np.zeros((3,1))
-sys.par[0]       = 0.95;
-sys.par[1]       = 0.16;
-sys.par[2]       = 0.70;
-sys.T            = 250;
+sys.par[0]       = 0.996;
+sys.par[1]       = 0.129;
+sys.par[2]       = 0.837;
+sys.T            = 3567;
 
 ########################################################################
 # Setup the parameters for the algorithm
@@ -65,6 +65,7 @@ smc.resampFactor   = 2;
 
 par.dataset = 0;
 data.sample(sys,np.zeros(sys.T))
+data.y = 100 * np.loadtxt("data/seOMXdata.csv",delimiter=",");
 
 ########################################################################
 # Make grid and estimate ll, score and info

@@ -13,12 +13,12 @@
 # 
 # Run this code together with the corresponding R-file to reproduce:
 #
-# IS for Bayesian parameter inference in the LGSS model
+# The IS algorithm for parameter inference
 # Example 3.1 in Section 3.2 
 #
 ########################################################################
 
-from kf import *
+from smc import *
 from classes import *
 from helpers import *
 import pandas
@@ -28,72 +28,80 @@ import numpy as np
 # Arrange the data structures
 ########################################################################
 data             = stData();
-kf               = kalmanFilter();
+smc              = smcSampler();
 par              = stParameters();
 
 ########################################################################
 # Setup the system
 ########################################################################
-sys              = stSystemLGSS()
+sys              = stSystemHW()
 sys.version      = "standard"
 sys.par          = np.zeros((3,1))
 sys.par[0]       = 0.50;
 sys.par[1]       = 1.00;
 sys.par[2]       = 0.10;
-sys.T            = 250;
+sys.T            = 3567;
+
+thSys            = stSystemHW()
+thSys.T          = sys.T;
+thSys.par        = np.zeros((3,1));
 
 ########################################################################
 # Setup the parameters for the algorithm
 ########################################################################
 
-par.fileprefix   = "lgss"
-par.nPars        = 1;
+par.fileprefix   = "hwsv"
+par.nPars        = 3;
 par.xo           = 0;
 par.Po           = 0.001;
+
+smc.nPart          = 5000;
+smc.resamplingType = "systematic";           # multinomial or systematic
+smc.filterType     = "bootstrap";            # kalman or bootstrap or fullyadapted
+smc.smootherType   = "fixedlag";             # kalman or filtersmoother or fixedlag or ffbsm (not implemented)
+smc.flVersion      = "full";                 # filtersmoother or neglectcross or full
+smc.fixedLag       = 12;
+smc.onlydiagInfo   = 0;
+smc.makeInfoPSD    = 1;
+smc.resampFactor   = 2;
 
 ########################################################################
 # Read the data
 ########################################################################
 
 par.dataset = 0;
-file = 'data/' + str(par.fileprefix) + 'T' + str(sys.T) +'/' + str(par.fileprefix) + 'DataT' + str(sys.T) + str(par.dataset) + '.csv'
-tmp = np.loadtxt(file,delimiter=",")
-data.x = tmp[:,0]; data.u = tmp[:,1]; data.y = tmp[:,2];
+data.sample(sys,np.zeros(sys.T))
+data.y = 100 * np.loadtxt("data/seOMXdata.csv",delimiter=",");
 
 ########################################################################
 # Importance sampling
 ########################################################################
 
 # No. samples from the target
-N = 500;
+N = 2000;
 
 # Allocate vectors
-th     = np.zeros((N,2))
+th     = np.zeros((N,3))
 ll     = np.zeros(N)
 
 # For each sample
 for kk in range(0,N):
     # propose
-    th[kk,0] = np.random.uniform(-0.99,0.99,1);
-    th[kk,1] = np.random.gamma(1,1,1);
+    th[kk,0] = np.random.uniform(0.50,1.00,1);
+    th[kk,1] = np.random.gamma(2,0.1,1);
+    th[kk,2] = np.random.gamma(7,0.1,1);
         
     # compute target
-    sys.par[0] = th[kk,0];
-    sys.par[1] = th[kk,1];
-    kf.filtersd(data,sys,par);
-    ll[kk] = kf.ll;
-
-# Compute the normalised weights
-normfactor = sum(exp(ll));
-w = exp(ll) / normfactor;
-
-# Compute the parameter estimates
-sum( th[:,0] * w )
-sum( th[:,1] * w )
+    thSys.par[0] = th[kk,0];
+    thSys.par[1] = th[kk,1];
+    thSys.par[2] = th[kk,2];
+    
+    smc.flPS(data,thSys,par);
+    ll[kk]    = smc.ll;
 
 # Export data to R for plotting
-out = vstack((th[:,0],th[:,1],w))
-pandas.DataFrame(out).to_csv("ch3-example-importancesampling-lgss.csv");
+out = vstack((th[:,0],th[:,1],th[:,2],ll))
+pandas.DataFrame(out).to_csv("ch3-example-importancesampling-hwsv.csv");
 
 ########################################################################
 # End of file

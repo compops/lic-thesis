@@ -37,9 +37,9 @@ par              = stParameters();
 sys              = stSystemHW()
 sys.version      = "standard"
 sys.par          = np.zeros((3,1))
-sys.par[0]       = 0.98;
-sys.par[1]       = 0.16;
-sys.par[2]       = 0.70;
+sys.par[0]       = 0.996;
+sys.par[1]       = 0.129;
+sys.par[2]       = 0.837;
 sys.T            = 3567;
 
 ########################################################################
