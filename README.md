@@ -33,8 +33,8 @@ Recreates the plot in "State inference in the Hull-White SV model in Example 3.6
 **ch3-example-hwsvllscoreinfo**
 Recreates the plot in "Score and information matrix in the Hull-White SV model" in Example 3.7 in Section 3.4.2.
 
-**ch3-example-importancesampling-lgss**
-Recreates the plot in "IS for Bayesian parameter inference in the LGSS model" in Example 3.1 in Section 3.2.
+**ch3-example-importancesampling-hwsv**
+Recreates the plot in "IS for Bayesian parameter inference in the HWSV model" in Example 3.1 in Section 3.2.
 
 **ch3-example-llestimationCLT**
 Recreates the plot in "Bias and varaiance of the log-likelihood estimate" in Example 3.4 in Section 3.3.4.
