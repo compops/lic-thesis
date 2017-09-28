@@ -3,15 +3,23 @@ lic-thesis
 
 Sequential Monte Carlo for inference in nonlinear state space models
 
-This code was downloaded from < https://github.com/compops/lic-thesis > or from < http://liu.johandahlin.com/ > and contains the code used to produce the results in the Licentiate's thesis
+This code was downloaded from < https://github.com/compops/lic-thesis > and contains the code used to produce the results in the Licentiate's thesis
 
-* J. Dahlin, *Sequential Monte Carlo for inference in nonlinear state space models*. Linköping Studies in Science and Technology. Thesis. No. 1652, April 2014.
+J. Dahlin, **Sequential Monte Carlo for inference in nonlinear state space models**. Linköping Studies in Science and Technology. Thesis. No. 1652, April 2014.
 
-The thesis is available from < http://liu.johandahlin.com/ >. Put all the code into the same folder with the data directory as an intact subdirectory and execute first the Python code and then the R code to generate the plots. Some results might differ slightly from the thesis due to random differences in the data or the algorithms.
+The thesis is available at < http://research.johandahlin.com/files/Dahlin2014-Lic.pdf >. Put all the code into the same folder with the data directory as an intact subdirectory and execute first the Python code and then the R code to generate the plots. Some results might differ slightly from the thesis due to random differences in the data or the algorithms.
 
 Requirements
 --------------
-The main programs are written in Python 2.7 and makes use of NumPy 1.7.1, SciPy 0.12.0, Matplotlib 1.2.1, Pandas 0.13.1 and GPy 0.4.9. Please have these packages installed, on Ubuntu they can be installed using "sudo pip install --upgrade *package-name* ". The plotting is done in R 3.0.1 and does not require any special packages. If any are missing from our system, they can be installed by executing the command "install.packages("packagename")" in the R console.
+The main programs are written in Python 2.7 and makes use of NumPy 1.7.1, SciPy 0.12.0, Matplotlib 1.2.1, Pandas 0.13.1 and GPy 0.4.9. Please have these packages installed, on Ubuntu they can be installed using 
+```
+sudo pip install --upgrade *package-name*
+```
+The plotting is done in R 3.0.1 and does not require any special packages. If any are missing from our system, they can be installed by executing the command
+``` R
+install.packages("packagename")
+```
+in the R console.
 
 Included files (examplesForThesis-python and examplesForThesis-R)
 --------------
