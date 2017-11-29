@@ -7,7 +7,7 @@ This code was downloaded from < https://github.com/compops/lic-thesis > and cont
 
 J. Dahlin, **Sequential Monte Carlo for inference in nonlinear state space models**. Linköping Studies in Science and Technology. Thesis. No. 1652, April 2014.
 
-The thesis is available at < http://research.johandahlin.com/files/Dahlin2014-Lic.pdf >. Put all the code into the same folder with the data directory as an intact subdirectory and execute first the Python code and then the R code to generate the plots. Some results might differ slightly from the thesis due to random differences in the data or the algorithms.
+The thesis is available at < http://www.johandahlin.com/files/theses/dahlin-licthesis.pdf >. Put all the code into the same folder with the data directory as an intact subdirectory and execute first the Python code and then the R code to generate the plots. Some results might differ slightly from the thesis due to random differences in the data or the algorithms.
 
 Requirements
 --------------
